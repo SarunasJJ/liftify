@@ -1,11 +1,11 @@
 services:
   postgres:
     image: postgres:15-alpine
-    container_name: ecom-db
+    container_name: liftify-postgres
     environment:
-      POSTGRES_DB: ecom
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: sarunas
+      POSTGRES_DB: liftify-db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: pass
     ports:
       - "5432:5432"  # Expose to host
     volumes:
@@ -16,27 +16,27 @@ services:
       timeout: 5s
       retries: 5
 
-  redis:
-    image: redis:7-alpine
-    container_name: ecom-redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
+#  redis:
+#    image: redis:7-alpine
+#    container_name: ecom-redis
+#    ports:
+#      - "6379:6379"
+#    volumes:
+#      - redis_data:/data
 
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: ecom-rabbitmq
-    environment:
-      RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: admin123
-    ports:
-      - "5672:5672"   # AMQP - expose to host
-      - "15672:15672" # Management UI
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
+    #   rabbitmq:
+    #   image: rabbitmq:3-management-alpine
+    #   container_name: ecom-rabbitmq
+      #    environment:
+      #     RABBITMQ_DEFAULT_USER: admin
+    #     RABBITMQ_DEFAULT_PASS: admin123
+        #   ports:
+        #      - "5672:5672"   # AMQP - expose to host
+    #     - "15672:15672" # Management UI
+        #   volumes:
+  #     - rabbitmq_data:/var/lib/rabbitmq
 
 volumes:
   postgres_data:
-  redis_data:
-  rabbitmq_data:
+  # redis_data:
+  # rabbitmq_data:
