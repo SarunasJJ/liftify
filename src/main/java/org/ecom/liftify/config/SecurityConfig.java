@@ -1,5 +1,6 @@
 package org.ecom.liftify.config;
 
+import net.minidev.json.JSONUtil;
 import org.ecom.liftify.services.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +30,7 @@ public class SecurityConfig {
                 })
                 .oauth2Login(oauth -> oauth
                         .userInfoEndpoint(userInfo -> userInfo
-                                .userService(userService)
+                                .oidcUserService(userService)
                         )
                 )
                 .build();
