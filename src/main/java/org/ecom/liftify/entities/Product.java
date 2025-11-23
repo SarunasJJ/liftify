@@ -26,6 +26,7 @@ public class Product {
 
     private BigDecimal price;
 
+    @Column(name = "remaining_stock")
     private Integer remainingStock;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
