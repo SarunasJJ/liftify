@@ -1,4 +1,4 @@
-package org.ecom.liftify.controllers;
+package org.ecom.liftify.controller;
 
 
 import org.springframework.web.bind.annotation.GetMapping;

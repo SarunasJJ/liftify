@@ -1,4 +1,4 @@
-package org.ecom.liftify.entities;
+package org.ecom.liftify.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

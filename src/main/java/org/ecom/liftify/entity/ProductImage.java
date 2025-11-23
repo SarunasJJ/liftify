@@ -1,4 +1,4 @@
-package org.ecom.liftify.entities;
+package org.ecom.liftify.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ public class ProductImage {
     private Product product;
 
     @Column(nullable = false)
-    private String imaUrl;
+    private String imgUrl;
 
     private Integer imgOrder;
     private Boolean mainImg;

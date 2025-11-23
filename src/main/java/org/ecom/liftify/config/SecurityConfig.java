@@ -1,7 +1,6 @@
 package org.ecom.liftify.config;
 
-import net.minidev.json.JSONUtil;
-import org.ecom.liftify.services.UserService;
+import org.ecom.liftify.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
