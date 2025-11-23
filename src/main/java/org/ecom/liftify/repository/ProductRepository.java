@@ -12,14 +12,11 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-
-    Optional<Product> findByTitle(String title);
-
     List<Product> findByTitleContainingIgnoreCase(String title);
 
     List<Product> findByPriceBetween(BigDecimal priceStart, BigDecimal priceEnd);
 
-    List<Product> findByRemainingStockGreaterThan(Integer stock);
+    List<Product> findByCategory(String category);
 
     Boolean existsByTitle(String title);
 

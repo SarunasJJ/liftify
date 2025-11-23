@@ -8,7 +8,6 @@ import org.ecom.liftify.entity.Product;
 import org.ecom.liftify.entity.ProductImage;
 import org.ecom.liftify.entity.Rating;
 import org.ecom.liftify.repository.ProductRepository;
-import org.springframework.data.repository.core.support.RepositoryMethodInvocationListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,11 +18,9 @@ import java.util.List;
 @Transactional
 public class ProductService {
     private final ProductRepository productRepository;
-    private final RepositoryMethodInvocationListener repositoryMethodInvocationListener;
 
-    public ProductService(ProductRepository productRepository, RepositoryMethodInvocationListener repositoryMethodInvocationListener) {
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.repositoryMethodInvocationListener = repositoryMethodInvocationListener;
     }
 
     public ProductResponse createProduct(CreateProductRequest request) {
@@ -93,6 +90,13 @@ public class ProductService {
     @Transactional(readOnly = true)
     public List<ProductListItemResponse> searchProduct(String search) {
         return productRepository.findByTitleContainingIgnoreCase(search).stream()
+                .map(this::mapToListItemResponse)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductListItemResponse> searchProductByCategory(String category) {
+        return productRepository.findByCategory(category).stream()
                 .map(this::mapToListItemResponse)
                 .toList();
     }
