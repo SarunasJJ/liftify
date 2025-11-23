@@ -29,7 +29,6 @@ public class UserService extends OidcUserService {
     @Override
     public OidcUser loadUser(OidcUserRequest userRequest) {
         OidcUser oauthUser = super.loadUser(userRequest);
-        System.out.println(">>> Google OAuth user loaded: " + oauthUser.getAttributes());
 
         String email = oauthUser.getAttribute("email");
         String name = oauthUser.getAttribute("name");
