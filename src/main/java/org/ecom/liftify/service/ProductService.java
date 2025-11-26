@@ -1,12 +1,14 @@
 package org.ecom.liftify.service;
 
-import org.ecom.liftify.dto.request.CreateProductRequest;
-import org.ecom.liftify.dto.request.UpdateProductRequest;
-import org.ecom.liftify.dto.response.ProductListItemResponse;
-import org.ecom.liftify.dto.response.ProductResponse;
+import org.ecom.liftify.dto.request.product.CreateProductRequest;
+import org.ecom.liftify.dto.request.product.UpdateProductRequest;
+import org.ecom.liftify.dto.response.product.ProductListItemResponse;
+import org.ecom.liftify.dto.response.product.ProductResponse;
 import org.ecom.liftify.entity.Product;
 import org.ecom.liftify.entity.ProductImage;
 import org.ecom.liftify.entity.Rating;
+import org.ecom.liftify.exception.DuplicateResourceException;
+import org.ecom.liftify.exception.ResourceNotFoundException;
 import org.ecom.liftify.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +27,7 @@ public class ProductService {
 
     public ProductResponse createProduct(CreateProductRequest request) {
         if(productRepository.existsByTitle(request.title())){
-
+            throw new ResourceNotFoundException("Product with title " + request.title() + " already exists");
         }
 
         Product product = Product.builder()
@@ -42,12 +44,12 @@ public class ProductService {
 
     public ProductResponse  updateProduct(Long id, UpdateProductRequest request) {
         Product product = productRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("Product does not exist"));
 
         if(request.title() != null){
             if(!request.title().equals(product.getTitle())
                 && productRepository.existsByTitle(request.title())){
-
+                throw new DuplicateResourceException("Product with such title already exists");
             }
             product.setTitle(request.title());
         }
@@ -68,7 +70,7 @@ public class ProductService {
 
     public void deleteProduct(Long id) {
         if(!productRepository.existsById(id)){
-
+            throw new ResourceNotFoundException("Product does not exist");
         }
         productRepository.deleteById(id);
     }
@@ -110,10 +112,10 @@ public class ProductService {
 
     public void updateStock(Long id, Integer change) {
         Product product = productRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("Product does not exist"));
 
         if(product.getRemainingStock() < change){
-
+            throw new IllegalStateException("Stock cannot be below 0");
         }
 
         product.setRemainingStock(product.getRemainingStock() - change);

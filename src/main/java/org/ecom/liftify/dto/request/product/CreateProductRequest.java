@@ -1,4 +1,4 @@
-package org.ecom.liftify.dto.request;
+package org.ecom.liftify.dto.request.product;
 
 import jakarta.validation.constraints.*;
 
@@ -21,7 +21,6 @@ public record CreateProductRequest(
         Integer remainingStock
 ) {
     public CreateProductRequest {
-        // Set default stock if null
         if (remainingStock == null) {
             remainingStock = 0;
         }

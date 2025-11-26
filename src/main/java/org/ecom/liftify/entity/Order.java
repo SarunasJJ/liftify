@@ -19,11 +19,14 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true, name = "tracking_number")
+    private String trackingNumber;
+
     @Column(nullable = false, name = "order_value")
     private BigDecimal orderValue;
 
-    @Column(nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -38,9 +41,21 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems =  new ArrayList<>();
 
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
+
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public enum OrderStatus {
+        PENDING,
+        PAID,
+        SHIPPED,
+        COMPLETED,
+        CANCELLED
+    }
 }

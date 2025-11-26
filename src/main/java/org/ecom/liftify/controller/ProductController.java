@@ -1,11 +1,10 @@
 package org.ecom.liftify.controller;
 
 import jakarta.validation.Valid;
-import org.ecom.liftify.dto.request.CreateProductRequest;
-import org.ecom.liftify.dto.request.UpdateProductRequest;
-import org.ecom.liftify.dto.response.ProductListItemResponse;
-import org.ecom.liftify.dto.response.ProductResponse;
-import org.ecom.liftify.entity.Product;
+import org.ecom.liftify.dto.request.product.CreateProductRequest;
+import org.ecom.liftify.dto.request.product.UpdateProductRequest;
+import org.ecom.liftify.dto.response.product.ProductListItemResponse;
+import org.ecom.liftify.dto.response.product.ProductResponse;
 import org.ecom.liftify.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

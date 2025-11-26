@@ -1,4 +1,4 @@
-package org.ecom.liftify.dto.response;
+package org.ecom.liftify.dto.response.product;
 
 import java.math.BigDecimal;
 

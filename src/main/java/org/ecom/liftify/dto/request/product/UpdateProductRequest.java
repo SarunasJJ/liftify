@@ -1,4 +1,4 @@
-package org.ecom.liftify.dto.request;
+package org.ecom.liftify.dto.request.product;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
